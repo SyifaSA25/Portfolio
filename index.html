@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    .grid-bg {
+      background-color: #0a0a0a;
+      background-image:
+        linear-gradient(rgba(30,64,175,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30,64,175,0.08) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .skill-bar-fill {
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #1e40af;
+      transition: width 0.3s;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+    .card-hover {
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 40px rgba(30,64,175,0.2);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .pulse-dot { animation: pulse-dot 2s infinite; }
+    .profile-ring {
+      background: conic-gradient(#1e40af, #3b82f6, #1e40af);
+      padding: 4px;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a0a; }
+    ::-webkit-scrollbar-thumb { background: #1e40af; border-radius: 3px; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="grid-bg w-full h-full overflow-auto text-white" style="font-family: Outfit, sans-serif;"><!-- NAV -->
+   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black/70 border-b border-blue-900/30">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+     <div class="font-mono text-blue-400 text-sm tracking-wider">
+      &lt;<span id="nav-nick">Syifa Atmaja</span>/&gt;
+     </div>
+     <div class="hidden md:flex gap-8"><a href="#home" class="nav-link text-sm text-gray-300 hover:text-white transition">Home</a> <a href="#about" class="nav-link text-sm text-gray-300 hover:text-white transition">About</a> <a href="#skills" class="nav-link text-sm text-gray-300 hover:text-white transition">Skills</a> <a href="#portfolio" class="nav-link text-sm text-gray-300 hover:text-white transition">Portfolio</a> <a href="#cv" class="nav-link text-sm text-gray-300 hover:text-white transition">CV</a>
+     </div><button id="mobile-menu-btn" class="md:hidden text-gray-300"><i data-lucide="menu" style="width:24px;height:24px;"></i></button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3"><a href="#home" class="text-sm text-gray-300 hover:text-white">Home</a> <a href="#about" class="text-sm text-gray-300 hover:text-white">About</a> <a href="#skills" class="text-sm text-gray-300 hover:text-white">Skills</a> <a href="#portfolio" class="text-sm text-gray-300 hover:text-white">Portfolio</a> <a href="#cv" class="text-sm text-gray-300 hover:text-white">CV</a>
+    </div>
+   </nav><!-- HERO -->
+   <section id="home" class="pt-28 pb-20 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+     <div class="flex-shrink-0 fade-in">
+      <div class="profile-ring">
+       <div class="w-52 h-52 md:w-64 md:h-64 rounded-full bg-gradient-to-br from-blue-900 to-gray-900 flex items-center justify-center overflow-hidden shadow-2xl">
+        <img src="ProfilSyifa.jpeg" alt="Foto Syifa" class="w-full h-full object-cover rounded-full">
+       </div>
+      </div>
+     </div>
+     <div class="fade-in text-center md:text-left">
+      <p class="font-mono text-blue-400 text-sm mb-2 tracking-wider">// welcome to my portfolio</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">Hi, I'm <span id="hero-nick" class="text-blue-400">Syifa</span>.</h1>
+      <h2 id="hero-fullname" class="text-2xl md:text-3xl font-semibold text-gray-300 mt-1">Syifa Sasmita Atmaja</h2>
+      <p id="hero-tagline" class="mt-4 font-mono text-blue-300 text-lg border-l-2 border-blue-500 pl-4">IT Systems Enthusiast</p>
+      <p id="hero-desc" class="mt-5 text-gray-400 leading-relaxed max-w-lg">I'm a student at SMKN 7 Semarang, majoring in Information Systems, Networks, and Applications (SIJA). While my foundation lies in network infrastructure, I'm at versatile learner with a strong interest in exploring new fields and cross-disciplinary challenges.</p>
+      <div class="mt-8 flex gap-4 justify-center md:justify-start"><a href="#portfolio" class="px-6 py-3 bg-blue-700 hover:bg-blue-600 rounded-lg font-medium text-sm transition shadow-lg shadow-blue-900/40">View Projects</a> <a href="#cv" class="px-6 py-3 border border-blue-700 hover:bg-blue-900/30 rounded-lg font-medium text-sm transition">View CV</a>
+      </div>
+     </div>
+    </div>
+   </section><!-- ABOUT -->
+   <section id="about" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="fade-in text-center mb-12">
+      <p class="font-mono text-blue-400 text-sm mb-2">// get to know me</p>
+      <h2 class="text-3xl md:text-4xl font-bold">About Me</h2>
+     </div>
+    <div class="fade-in grid md:grid-cols-2 gap-10 items-start">
+     <div class="flex flex-col gap-6">
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-8 self-start">
+       <h3 class="text-xl font-semibold text-blue-400 mb-4 flex items-center gap-2"><i data-lucide="user" style="width:20px;height:20px;"></i> Background</h3>
+       <p id="about-text" class="text-gray-400 leading-relaxed">I'm the second child of two siblings. I live with my parents and my older brother. I grew up in a supportive family environment that encourages me to keep learning and developing myself.</p>
+      </div>
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+       <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center gap-2"><i data-lucide="heart" style="width:20px;height:20px;"></i> Hobbies &amp; Interests</h3>
+       <div class="flex flex-wrap gap-2"><span class="px-3 py-1 bg-blue-900/40 border border-blue-800/50 rounded-full text-sm text-blue-300">Listening to music</span> <span class="px-3 py-1 bg-blue-900/40 border border-blue-800/50 rounded-full text-sm text-blue-300">Reading books</span> <span class="px-3 py-1 bg-blue-900/40 border border-blue-800/50 rounded-full text-sm text-blue-300">Watching movies</span> <span class="px-3 py-1 bg-blue-900/40 border border-blue-800/50 rounded-full text-sm text-blue-300">Exploring nature</span> <span class="px-3 py-1 bg-blue-900/40 border border-blue-800/50 rounded-full text-sm text-blue-300">Problem Solving</span>
+       </div>
+      </div>
+     </div>
+     <div class="space-y-6">
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6 h-full flex flex-col justify-between">
+       <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center gap-2"><i data-lucide="target" style="width:20px;height:20px;"></i> Career Goals</h3>
+       <p class="text-gray-400 text-sm">To become a successful entrepreneur by applying the knowledge of information technology gained during school to support the business I will build in the future.</p>
+      </div>
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+       <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center gap-2"><i data-lucide="zap" style="width:20px;height:20px;"></i> Strengths</h3>
+      <p class="text-gray-400 text-sm"><span class="text-white">Soft Skills:</span> Communicative, disciplined, adaptable<br><span class="text-white">Hard Skills:</span> HTML, CSS, basic JavaScript, Canva, basic networking</p>
+      </div>
+      <div class="bg-white/5 backdrop-blur border border-white/10 rounded-2xl p-6">
+       <h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center gap-2"><i data-lucide="graduation-cap" style="width:20px;height:20px;"></i> Education</h3>
+      <p class="text-gray-400 text-sm"><span class="font-semibold text-white">SMK Negeri 7 Semarang</span> (System Information, Networking, and Application) | 2024 – Present</p>
+      <p class="text-gray-400 text-sm mt-2"><span class="font-semibold text-white">SMPN 30 Semarang</span> | 2021 – 2024</p>
+      <p class="text-gray-400 text-sm mt-2"><span class="font-semibold text-white">SDN Kalibanteng Kidul 03</span> | 2015 – 2021</p>
+      <p class="text-gray-400 text-sm mt-2"><span class="font-semibold text-white">TK Nurul Hidayah</span> | 2013 – 2015</p>
+      </div>
+     </div>
+    </div>
+    </div>
+   </section><!-- SKILLS -->
+   <section id="skills" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="fade-in text-center mb-12">
+      <p class="font-mono text-blue-400 text-sm mb-2">// what I can do</p>
+      <h2 class="text-3xl md:text-4xl font-bold">Skills</h2>
+     </div>
+     <div class="fade-in grid md:grid-cols-2 gap-8">
+      <div class="space-y-6">
+       <div>
+        <div class="flex justify-between mb-2">
+         <span class="text-sm font-medium">HTML</span><span class="text-sm text-blue-400 font-mono">90%</span>
+        </div>
+        <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+         <div class="skill-bar-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="90" style="width:0%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2">
+         <span class="text-sm font-medium">CSS</span><span class="text-sm text-blue-400 font-mono">85%</span>
+        </div>
+        <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+         <div class="skill-bar-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="85" style="width:0%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2">
+         <span class="text-sm font-medium">JavaScript</span><span class="text-sm text-blue-400 font-mono">55%</span>
+        </div>
+        <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+         <div class="skill-bar-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="55" style="width:0%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2">
+         <span class="text-sm font-medium">Cisco Packet Tracer</span><span class="text-sm text-blue-400 font-mono">80%</span>
+        </div>
+        <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+         <div class="skill-bar-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="80" style="width:0%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2">
+         <span class="text-sm font-medium">Networking</span><span class="text-sm text-blue-400 font-mono">80%</span>
+        </div>
+        <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+         <div class="skill-bar-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="80" style="width:0%"></div>
+        </div>
+       </div>
+       <div>
+        <div class="flex justify-between mb-2">
+         <span class="text-sm font-medium">Canva (Editing &amp; Design)</span><span class="text-sm text-blue-400 font-mono">90%</span>
+        </div>
+        <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+         <div class="skill-bar-fill h-full bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" data-width="90" style="width:0%"></div>
+        </div>
+       </div>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+       <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-hover">
+        <i data-lucide="code-2" class="mx-auto mb-2 text-blue-400" style="width:28px;height:28px;"></i>
+        <p class="text-xs text-gray-300">VS Code</p>
+       </div>
+       <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-hover">
+        <i data-lucide="figma" class="mx-auto mb-2 text-blue-400" style="width:28px;height:28px;"></i>
+        <p class="text-xs text-gray-300">Figma</p>
+       </div>
+       <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-hover">
+        <i data-lucide="git-branch" class="mx-auto mb-2 text-blue-400" style="width:28px;height:28px;"></i>
+        <p class="text-xs text-gray-300">Git</p>
+       </div>
+       <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-hover">
+        <i data-lucide="terminal" class="mx-auto mb-2 text-blue-400" style="width:28px;height:28px;"></i>
+        <p class="text-xs text-gray-300">Terminal</p>
+       </div>
+       <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-hover">
+        <i data-lucide="wifi" class="mx-auto mb-2 text-blue-400" style="width:28px;height:28px;"></i>
+        <p class="text-xs text-gray-300">Cisco Packet Tracer</p>
+       </div>
+       <div class="bg-white/5 border border-white/10 rounded-xl p-4 text-center card-hover">
+        <i data-lucide="globe" class="mx-auto mb-2 text-blue-400" style="width:28px;height:28px;"></i>
+        <p class="text-xs text-gray-300">Networking</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- PORTFOLIO -->
+   <section id="portfolio" class="py-20 px-6">
+    <div class="max-w-6xl mx-auto">
+     <div class="fade-in text-center mb-12">
+      <p class="font-mono text-blue-400 text-sm mb-2">// things I've built</p>
+      <h2 class="text-3xl md:text-4xl font-bold">Portfolio</h2>
+     </div>
+     <div class="fade-in grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-hover">
+       <div class="h-40 bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center">
+        <i data-lucide="award" class="text-blue-300" style="width:48px;height:48px;"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="font-semibold text-lg mb-2">Training Certificates</h3>
+        <p class="text-gray-400 text-sm mb-4">A collection of training certificates showing my continuous learning and skill development.</p>
+        <p class="text-blue-300 text-xs mb-4"><a href="https://drive.google.com/drive/folders/10qVeg3Tu7gG3x5qKfQqstHLM265hH6dz" target="_blank" rel="noreferrer" class="hover:underline">View folder</a></p>
+        <div class="flex gap-2"><span class="px-2 py-0.5 bg-blue-900/40 text-blue-300 rounded text-xs">Certificates</span> <span class="px-2 py-0.5 bg-blue-900/40 text-blue-300 rounded text-xs">Learning</span>
+        </div>
+       </div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-hover">
+       <div class="h-40 bg-gradient-to-br from-fuchsia-900 to-purple-800 flex items-center justify-center">
+        <i data-lucide="trophy" class="text-purple-300" style="width:48px;height:48px;"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="font-semibold text-lg mb-2">Achievement Certificates</h3>
+        <p class="text-gray-400 text-sm mb-4">Recognition certificates earned from accomplishments in academics and extracurricular activities.</p>
+        <p class="text-blue-300 text-xs mb-4"><a href="https://drive.google.com/drive/folders/1MC-31jzoFyZeQIWAcXpIjxPIsi-BazwC" target="_blank" rel="noreferrer" class="hover:underline">View folder</a></p>
+        <div class="flex gap-2"><span class="px-2 py-0.5 bg-blue-900/40 text-blue-300 rounded text-xs">Recognition</span> <span class="px-2 py-0.5 bg-blue-900/40 text-blue-300 rounded text-xs">Awards</span>
+        </div>
+       </div>
+      </div>
+      <div class="bg-white/5 border border-white/10 rounded-2xl overflow-hidden card-hover">
+       <div class="h-40 bg-gradient-to-br from-slate-900 to-teal-700 flex items-center justify-center">
+        <i data-lucide="heart-pulse" class="text-teal-300" style="width:48px;height:48px;"></i>
+       </div>
+       <div class="p-6">
+        <h3 class="font-semibold text-lg mb-2">MoodMoo Mental Health Website</h3>
+        <p class="text-gray-400 text-sm mb-4">A mental health website designed to support emotional well-being and provide helpful resources.</p>
+        <p class="text-blue-300 text-xs mb-4"><a href="https://moodmoo.vercel.app/home.html" target="_blank" rel="noreferrer" class="hover:underline">Visit website</a></p>
+        <div class="flex gap-2"><span class="px-2 py-0.5 bg-blue-900/40 text-blue-300 rounded text-xs">Web Design</span> <span class="px-2 py-0.5 bg-blue-900/40 text-blue-300 rounded text-xs">Mental Health</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+  </section><!-- CV -->
+  <section id="cv" class="py-20 px-6">
+   <div class="max-w-6xl mx-auto">
+    <div class="fade-in text-center mb-12">
+    <p class="font-mono text-blue-400 text-sm mb-2">// my credentials</p>
+    <h2 class="text-3xl md:text-4xl font-bold">Curriculum Vitae</h2>
+    </div>
+    <div class="fade-in grid md:grid-cols-3 gap-6">
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+     <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center gap-2"><i data-lucide="id-card" style="width:20px;height:20px;"></i> Personal Data</h3>
+     <div class="flex justify-center mb-6">
+      <img src="CV.jpeg" alt="Foto Syifa" class="w-32 h-32 rounded-full object-cover object-top border border-white/10 shadow-xl" style="filter: grayscale(100%) brightness(0.95); object-position: top;" />
+     </div>
+     <ul class="space-y-3 text-sm text-gray-400">
+      <li><span class="text-gray-500">Name:</span> <span id="cv-name" class="text-gray-300">Syifa Sasmita Atmaja</span></li>
+      <li><span class="text-gray-500">Place & Date of Birth:</span> <span class="text-gray-300">Semarang, 25 October 2008</span></li>
+      <li><span class="text-gray-500">Gender:</span> <span class="text-gray-300">Female</span></li>
+      <li><span class="text-gray-500">Address:</span>
+      <div class="text-gray-300">Jl. Taman sri rejeki no. 18<br>RT 07/RW 02, Kelurahan Kalibanteng Kidul, Kecamatan Semarang Barat</div>
+      </li>
+      <li><span class="text-gray-500">Email:</span> <span class="text-gray-300">anothersidesnyasyifa@gmail.com</span></li>
+      <li><span class="text-gray-500">Instagram:</span> <a href="https://www.instagram.com/syifaatmja?igsh=N2p2cGRkNDF5czY1" target="_blank" rel="noreferrer" class="text-gray-300 hover:text-blue-300">@Syifaatmja</a></li>
+     </ul>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-8">
+     <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center gap-2"><i data-lucide="book-open" style="width:20px;height:20px;"></i> Education &amp; Experience</h3>
+     <div class="space-y-4 text-sm text-gray-300">
+      <p class="font-medium text-blue-300">Education:</p>
+      <ul class="list-disc list-inside space-y-1 text-gray-300">
+       <li><span class="font-semibold text-white">TK Nurul Hidayah</span></li>
+       <li><span class="font-semibold text-white">SDN Kalibanteng Kidul 03</span></li>
+       <li><span class="font-semibold text-white">SMPN 30 Semarang</span></li>
+       <li><span class="font-semibold text-white">SMK Negeri 7 Semarang - SIJA</span></li>
+      </ul>
+      <div class="mt-4">
+       <p class="font-medium text-blue-300">Experience:</p>
+       <ul class="list-disc list-inside space-y-1 text-gray-300">
+        <li>Chairperson of Karimah Remaja Masjid Al-Huda (2025-Present)</li>
+        <li>Mosque & Community Event Committee (2023-Present)</li>
+        <li>Secretary of Karang Taruna RW 2 Kalibanteng Kidul</li>
+        <li>Active participant in various training programs and quiz competitions</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+    <div class="bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col justify-between">
+     <div>
+      <h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center gap-2"><i data-lucide="code" style="width:20px;height:20px;"></i> Skills</h3>
+      <ul class="text-gray-300 text-sm space-y-2">
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript Basics</li>
+      <li>Canva</li>
+      <li>Networking Basics</li>
+      </ul>
+      <div class="mt-6">
+      <h4 class="text-blue-300 font-medium mb-2">My Quote</h4>
+      <blockquote id="cv-quote" class="text-gray-300 italic text-lg leading-relaxed border-l-4 border-blue-600 pl-4">
+       "Keep growing, keep learning, and become the best version of who you are."
+      </blockquote>
+      <p class="text-gray-500 text-sm mt-3">— SyifaA</p>
+      </div>
+     </div>
+     <div class="mt-6 flex items-center gap-2"><span class="w-2 h-2 bg-green-400 rounded-full pulse-dot"></span> <span class="text-xs text-gray-500">Open to opportunities</span>
+     </div>
+    </div>
+    </div>
+   </div>
+   </section><!-- FOOTER -->
+   <footer class="border-t border-white/10 py-8 px-6 text-center">
+    <p class="text-gray-500 text-sm font-mono">© 2026 <span id="footer-name">Syifa Atmaja</span>. Built with passion.</p>
+   </footer>
+  </div>
+  <script>
+  // Element SDK
+  const defaultConfig = {
+    nickname: 'Syifa',
+    full_name: 'Syifa Sasmita Atmaja',
+    tagline: 'IT Systems Enthusiast',
+    hero_description: 'A passionate student developer who loves building clean and functional web experiences. Focused on front-end technologies and always eager to learn something new every day.',
+    about_text: 'I come from a supportive family that values education and creativity. Currently studying at SMKN 7 Semarang in the Software Engineering program, I have developed a strong foundation in web development and IT systems.',
+    school_name: 'SMKN 7 Semarang',
+    quote_text: '"Code is like humor. When you have to explain it, it\'s bad."',
+    background_color: '#0a0a0a',
+    surface_color: '#1e3a8a',
+    text_color: '#ffffff',
+    primary_action_color: '#1e40af',
+    secondary_action_color: '#3b82f6',
+    font_family: 'Outfit',
+    font_size: 16
+  };
+
+  function applyConfig(config) {
+    const c = { ...defaultConfig, ...config };
+    document.getElementById('nav-nick').textContent = c.nickname;
+    document.getElementById('hero-nick').textContent = c.nickname;
+    document.getElementById('hero-fullname').textContent = c.full_name;
+    document.getElementById('hero-tagline').textContent = c.tagline;
+    document.getElementById('hero-desc').textContent = c.hero_description;
+    document.getElementById('about-text').textContent = c.about_text;
+    document.getElementById('about-school').textContent = c.school_name;
+    document.getElementById('cv-name').textContent = c.full_name;
+    document.getElementById('cv-school').textContent = c.school_name;
+    document.getElementById('cv-quote').textContent = c.quote_text;
+    document.getElementById('footer-name').textContent = c.full_name;
+
+    const wrapper = document.getElementById('app-wrapper');
+    wrapper.style.backgroundColor = c.background_color;
+    wrapper.style.color = c.text_color;
+    wrapper.style.fontFamily = `${c.font_family}, Outfit, sans-serif`;
+
+    const baseSize = c.font_size;
+    document.querySelectorAll('h1').forEach(el => el.style.fontSize = '');
+    document.querySelectorAll('p, li, span, a').forEach(el => {
+      if (!el.closest('nav')) el.style.fontSize = '';
+    });
+
+    // Apply accent colors
+    document.querySelectorAll('.text-blue-400').forEach(el => el.style.color = c.secondary_action_color);
+    document.querySelectorAll('.bg-blue-700').forEach(el => {
+      el.style.backgroundColor = c.primary_action_color;
+    });
+  }
+
+  if (window.elementSdk) {
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange: async (config) => applyConfig(config),
+      mapToCapabilities: (config) => {
+        const c = { ...defaultConfig, ...config };
+        return {
+          recolorables: [
+            { get: () => c.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => c.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+            { get: () => c.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => c.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+            { get: () => c.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => c.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => c.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        };
+      },
+      mapToEditPanelValues: (config) => {
+        const c = { ...defaultConfig, ...config };
+        return new Map([
+          ['nickname', c.nickname],
+          ['full_name', c.full_name],
+          ['tagline', c.tagline],
+          ['hero_description', c.hero_description],
+          ['about_text', c.about_text],
+          ['school_name', c.school_name],
+          ['quote_text', c.quote_text]
+        ]);
+      }
+    });
+  }
+
+  // Mobile menu
+  document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('hidden');
+  });
+  document.querySelectorAll('#mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Skill bars animation
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.getElementById('skills') && skillObserver.observe(document.getElementById('skills'));
+
+  lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ef03bcf539cfcdf',t:'MTc3NjY0NzA1My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
